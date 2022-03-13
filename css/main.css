@@ -322,3 +322,27 @@ body{
   right: 0%;
   cursor: pointer;
 }
+
+#notesNotFoundDivider{
+  border-radius: 15px;
+    background: white;
+    padding: 20px;
+    width: 200px;
+    height: 25px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 240px;
+}
+
+#notesNotFoundIcon{
+  width: 30px;
+  height: 30px;
+  margin-left: 30px;
+}
+
+#noNotesFoundText{
+  font-family: 'Oswald', sans-serif;
+  margin-top: -32px;
+  margin-left: 70px;
+}

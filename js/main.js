@@ -39,7 +39,14 @@ function closeNav() {
 function loadNotes(){
     fetch("http://localhost:3000/getNotes")
     .then((res) => {
+        document.getElementById('noteListDivider').innerHTML = '';
         res.json().then(function (data) {
+            if(data.length != 0){
+                document.getElementById("notesNotFoundDivider").style.display = 'none';
+            }else{
+                document.getElementById("notesNotFoundDivider").style.display = '';
+            }
+            data.reverse();
             for (let i = 0; i < data.length; i++) {
                 var tempId = data[i]['data']['id']
                 var tempText = data[i]['data']['note_text']
@@ -62,9 +69,10 @@ function loadNotes(){
 function deleteNote(noteId){
     fetch("http://localhost:3000/deleteNote/" + noteId)
         .then((res) => {
-            console.log(res)
+            console.log("Note with ID " + noteId + " deleted")
         })
         .catch((err) => {
             console.log("ERROR on fetch request", err); 
     })
+    loadNotes();
 }

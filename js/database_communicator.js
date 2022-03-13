@@ -45,7 +45,7 @@ app.get('/addNote/:receivedData', (req, response) => {
       response.send(("Document for '" + receivedData +"' written with ID: ", docRef.id))
     })
     .catch((error) => {
-      console.error("Error adding document: ", error);
+      console.error("[ERROR] Error adding document: ", error);
     });
 });
 
@@ -66,13 +66,13 @@ app.get('/getNotes', (req, response) => {
 });
 });
 
-app.get('/deleteNote/:noteId'), (req, response) => {
+app.get('/deleteNote/:noteId', (req, response) => {
   var receivedData = req.params["noteId"];
   db.collection("notes").doc(receivedData).delete().then(() => {
-      console.log("Document successfully deleted!");
-      response.send("Successfully Deleted")
+      console.log("[DELETE] Document successfully deleted!");
+      response.send("[DELETE] Successfully Deleted")
   }).catch((error) => {
-      console.error("Error removing document: ", error);
-      response.send("Error removing document: ", error)
+      console.error("[ERROR] Error removing document: ", error);
+      response.send("[ERROR] Error removing document: ", error)
   });
-}
+})
