@@ -308,18 +308,28 @@ body{
   box-shadow: 0 5px 10px rgba(0,0,0,.2);
   background: white;
   margin-top: 8px;
+  overflow: hidden;
 }
 
 #noteTextInCard{
   margin-left: 30px;
   margin-top: -5px;
+  font-size: 20px;
+}
+
+#noteDateInCard{
+  margin-left: 30px;
+  margin-top: -5px;
+  font-size: 14px;
+  color: grey;
 }
 
 #deleteIcon{
   position: relative;
   width: 20px;
   height: 20px;
-  right: 0%;
+  float: right;
+  bottom: 5%;
   cursor: pointer;
 }
 

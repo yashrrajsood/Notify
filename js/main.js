@@ -55,6 +55,7 @@ function loadNotes(){
                 `
                 <div id="noteCardElement" class="card">
                     <p id="noteTextInCard">${tempText}</p>
+                    <p id="noteDateInCard">${tempTime}</p>
                     <img src="/images/deleteIcon.png" id="deleteIcon" onclick="deleteNote('${tempId}')">
                 </div>
                 `;
