@@ -315,7 +315,12 @@ body{
 #noteTextInCard{
   margin-left: 30px;
   margin-top: -5px;
+  font-size: 18px;
   
+}
+#noteDateInCard{
+  margin-left: 30px;
+  font-size: 14px;
 }
 
 #deleteIcon{
@@ -324,6 +329,7 @@ body{
   height: 20px;
   right: 0%;
   cursor: pointer;
+  margin-left: 30px;
 }
 
 #notesNotFoundDivider{
