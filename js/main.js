@@ -1,11 +1,7 @@
 function addNote(){
     dataToSend = document.getElementById('inputTextToSend').value
     if (dataToSend == ""){
-        document.getElementById('emptyFieldAlertDivider').style.display = '';
-        
-        setInterval(function(){ 
-            document.getElementById('emptyFieldAlertDivider').style.display = 'none'; 
-        }, 1500);
+        fadeOutEffect('emptyFieldAlertDivider', 40);
 
     }else{
         document.getElementById('loadingDivider').style.display = '';
@@ -16,6 +12,7 @@ function addNote(){
             });
             document.getElementById('inputTextToSend').value = ""
             document.getElementById('loadingDivider').style.display = 'none';
+            fadeOutEffect('successAlert', 40);    
         })
         .catch((err) => {
             /* handle errors */
@@ -24,13 +21,21 @@ function addNote(){
     }
 }
 
-/* Open the sidenav */
+window.onload = function what() {
+    var inputBox = document.getElementById("inputTextToSend");
+    inputBox.addEventListener('keydown', function(e){
+        if (e.code === "Enter") { 
+            addNote()
+        }
+    });
+};
+
+
 function openNav() {
     document.getElementById("mySidenav").style.width = "100%";
     loadNotes();
-  }
+}
   
-/* Close/hide the sidenav */
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
     document.getElementById('noteListDivider').innerHTML = '';
@@ -76,4 +81,19 @@ function deleteNote(noteId){
             console.log("ERROR on fetch request", err); 
     })
     loadNotes();
+}
+
+function fadeOutEffect(docID, intervalTiming) {
+    document.getElementById(docID).style.opacity = 1;
+    var fadeTarget = document.getElementById(docID);
+    var fadeEffect = setInterval(function () {
+        if (!fadeTarget.style.opacity) {
+            fadeTarget.style.opacity = 1;
+        }
+        if (fadeTarget.style.opacity > 0) {
+            fadeTarget.style.opacity -= 0.01;
+        } else {
+            clearInterval(fadeEffect);
+        }
+    }, intervalTiming);
 }
