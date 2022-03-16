@@ -32,8 +32,17 @@
                     <input type="range" min="1" max="5" value="1" class="slider" id="myRange">
                     <Strong><p id="exMark">!</p></Strong>
                 </div>
-                
                 <p id="importanceTicker" hidden></p>
+            </div>
+            <div id="tagesInputSection">
+                <p id="tagsInputTag">Tags:</p>
+                <button id="pillPersonal" onclick="addTag('Personal')">Personal</button>
+                <button id="pillWork" onclick="addTag('Work')">Work</button>
+                <button id="pillSchool" onclick="addTag('School')">School</button>
+                <button id="pillIdeas" onclick="addTag('Ideas')">Ideas</button>
+                <button id="pillToDo" onclick="addTag('ToDo')">ToDo</button>
+                <button id="pillGroceries" onclick="addTag('Groceries')">Groceries</button>
+                <button id="pillQuotes" onclick="addTag('Quotes')">Quotes</button>
             </div>
         </div>
         <div id="loadingDivider">
@@ -74,6 +83,7 @@
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <h3 id="notesTitle">Notes</h3>
+            <img id="filterIcon" src="/images/filterIcon.png">
             <hr id="notesTitleDivider" class="rounded">
 
             <div id="noteListDivider">
