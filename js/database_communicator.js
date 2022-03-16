@@ -22,14 +22,19 @@ app.listen(port, () => {
   console.log("============================================");
 });
 
-app.get('/addNote/:receivedData/:importanceLevel', (req, response) => {
+app.get('/addNote/:receivedData/:importanceLevel/:tags', (req, response) => {
 
     var receivedData = req.params["receivedData"];
     var importanceTicker = req.params["importanceLevel"];
+    var tags = req.params["tags"];
+    var tagsList = [];
+
+    if(tags != "null"){
+      tagsList = tags.split(',')
+    }
 
     console.log("[UPLOAD] Uploading '" + receivedData + "' with an importance of "+ importanceTicker + " to the database now" )
     
-
     var currentdate = new Date(); 
     var datetime = currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/" 
@@ -42,6 +47,7 @@ app.get('/addNote/:receivedData/:importanceLevel', (req, response) => {
       note_text: receivedData,
       importance_level: importanceTicker,
       dateTime: datetime,
+      tags: tagsList
     })
     .then((docRef) => {
       response.send(("Document for '" + receivedData + "[" + importanceTicker +  "]"+ "' written with ID: ", docRef.id))

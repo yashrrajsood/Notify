@@ -1,20 +1,26 @@
+var tag_list = [];
+
 function addNote(){
     dataToSend = document.getElementById('inputTextToSend').value
     if (dataToSend == ""){
         fadeOutEffect('emptyFieldAlertDivider', 40);
 
     }else{
+        var tagString = ""
+        if (tag_list.length == 0){
+            tagString = "null"
+        }else{
+            tagString = tag_list.join(',');
+        }
         var slider = document.getElementById("myRange");
         document.getElementById('loadingDivider').style.display = '';
-        fetch("http://localhost:3000/addNote/" + dataToSend + "/" + slider.value)
+        fetch("http://localhost:3000/addNote/" + dataToSend + "/" + slider.value + "/" + tagString)
         .then((res) => {
             res.text().then(function (data) {
                 console.log("Note saved with id: " + data + ' [With importancd level of ' + slider.value + "]");
                 slider.value = 1;
             });
-            document.getElementById('inputTextToSend').value = "";
-            document.getElementById("exMark").innerHTML = "!";
-            document.getElementById('loadingDivider').style.display = 'none';
+            resetPageInputs();
             fadeOutEffect('successAlert', 40);    
         })
         .catch((err) => {
@@ -25,6 +31,7 @@ function addNote(){
 }
 
 window.onload = function what() {
+    
     var inputBox = document.getElementById("inputTextToSend");
     inputBox.addEventListener('keydown', function(e){
         if (e.code === "Enter") { 
@@ -53,6 +60,23 @@ window.onload = function what() {
     }
 };
 
+function addTag(tagName){
+    var targetPill = document.getElementById("pill" + tagName)
+    if(tag_list.includes(tagName)){
+        for (var i = tag_list.length - 1; i >= 0; i--) {
+            if (tag_list[i] === tagName) {
+                tag_list.splice(i, 1);
+            }
+        }
+        targetPill.style.backgroundColor = "rgba(244,92,67,1)";
+        targetPill.style.color = "white";
+    }else{
+        tag_list.push(tagName)
+        targetPill.style.backgroundColor = "white";
+        targetPill.style.color = "grey";
+    }
+    console.log(tag_list)
+}
 
 function openNav() {
     document.getElementById("mySidenav").style.width = "100%";
@@ -80,6 +104,7 @@ function loadNotes(){
                 var tempText = data[i]['data']['note_text']
                 var tempTime = data[i]['data']['dateTime']
                 var tempImportance = data[i]['data']['importance_level']
+                var tempTags = data[i]['data']['tags']
                 if(tempImportance == 1){
                     tempImportance = "!"
                 }else if(tempImportance == 2){
@@ -96,9 +121,17 @@ function loadNotes(){
                 <div id="noteCardElement" class="card">
                     <p id="noteTextInCard">${tempText}</p>
                     <p id="noteDateInCard">${tempTime}&nbsp&nbsp|&nbsp&nbsp<strong>${tempImportance}</strong></p>
+                    <div id="tagsDivider${tempText}">
+                    </div>
                     <img src="/images/deleteIcon.png" id="deleteIcon" onclick="deleteNote('${tempId}')">
                 </div>
                 `;
+                for(var x = 0; x < tempTags.length; x++){
+                    document.getElementById('tagsDivider'+tempText).innerHTML += 
+                    `
+                    <button id="pills">${tempTags[x]}</button>
+                    `;
+                }
             }
         })
     })
@@ -131,4 +164,25 @@ function fadeOutEffect(docID, intervalTiming) {
             clearInterval(fadeEffect);
         }
     }, intervalTiming);
+}
+
+function resetPageInputs(){
+    document.getElementById('inputTextToSend').value = "";
+    document.getElementById("exMark").innerHTML = "!";
+    document.getElementById('loadingDivider').style.display = 'none';
+    document.getElementById('pillPersonal').style.backgroundColor = "rgba(244,92,67,1)";
+    document.getElementById('pillPersonal').style.color = "white";
+    document.getElementById('pillWork').style.backgroundColor = "rgba(244,92,67,1)";
+    document.getElementById('pillWork').style.color = "white";
+    document.getElementById('pillSchool').style.backgroundColor = "rgba(244,92,67,1)";
+    document.getElementById('pillSchool').style.color = "white";
+    document.getElementById('pillIdeas').style.backgroundColor = "rgba(244,92,67,1)";
+    document.getElementById('pillIdeas').style.color = "white";
+    document.getElementById('pillToDo').style.backgroundColor = "rgba(244,92,67,1)";
+    document.getElementById('pillToDo').style.color = "white";
+    document.getElementById('pillGroceries').style.backgroundColor = "rgba(244,92,67,1)";
+    document.getElementById('pillGroceries').style.color = "white";
+    document.getElementById('pillQuotes').style.backgroundColor = "rgba(244,92,67,1)";
+    document.getElementById('pillQuotes').style.color = "white";
+    tag_list = [];
 }
