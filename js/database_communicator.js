@@ -22,11 +22,12 @@ app.listen(port, () => {
   console.log("============================================");
 });
 
-app.get('/addNote/:receivedData', (req, response) => {
+app.get('/addNote/:receivedData/:importanceLevel', (req, response) => {
 
     var receivedData = req.params["receivedData"];
+    var importanceTicker = req.params["importanceLevel"];
 
-    console.log("[UPLOAD] Uploading '" + receivedData + "' to the database now" )
+    console.log("[UPLOAD] Uploading '" + receivedData + "' with an importance of "+ importanceTicker + " to the database now" )
     
 
     var currentdate = new Date(); 
@@ -39,10 +40,11 @@ app.get('/addNote/:receivedData', (req, response) => {
 
     db.collection("notes").add({
       note_text: receivedData,
+      importance_level: importanceTicker,
       dateTime: datetime,
     })
     .then((docRef) => {
-      response.send(("Document for '" + receivedData +"' written with ID: ", docRef.id))
+      response.send(("Document for '" + receivedData + "[" + importanceTicker +  "]"+ "' written with ID: ", docRef.id))
     })
     .catch((error) => {
       console.error("[ERROR] Error adding document: ", error);
