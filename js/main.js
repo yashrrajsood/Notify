@@ -98,7 +98,7 @@ function loadNotes(){
             }else{
                 document.getElementById("notesNotFoundDivider").style.display = '';
             }
-            data.reverse();
+            // data.reverse();
             for (let i = 0; i < data.length; i++) {
                 var tempId = data[i]['data']['id']
                 var tempText = data[i]['data']['note_text']
