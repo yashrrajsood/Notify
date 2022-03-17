@@ -17,9 +17,9 @@ firebase.initializeApp({
 var db = firebase.firestore();
 
 app.listen(port, () => {
-  console.log("============================================");
-  console.log(`Server Running & listening on port ${port}`)
-  console.log("============================================");
+  console.log("====================================================================================================================================");
+  console.log(`============================================ Server Running & listening on port ${port} ===============================================`)
+  console.log("====================================================================================================================================");
 });
 
 app.get('/addNote/:receivedData/:importanceLevel/:tags', (req, response) => {
@@ -28,12 +28,13 @@ app.get('/addNote/:receivedData/:importanceLevel/:tags', (req, response) => {
     var importanceTicker = req.params["importanceLevel"];
     var tags = req.params["tags"];
     var tagsList = [];
+    var tagCount = 0;
 
     if(tags != "null"){
       tagsList = tags.split(',')
+      tagCount = tagsList.length;
     }
-
-    console.log("[UPLOAD] Uploading '" + receivedData + "' with an importance of "+ importanceTicker + " to the database now" )
+    console.log("[UPLOAD] Uploading '" + receivedData + "' [Importance: "+ importanceTicker + "][Tags: " + tagCount + "] to the database now" )
     
     var currentdate = new Date(); 
     var datetime = currentdate.getDate() + "/"
